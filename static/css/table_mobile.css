@@ -1,0 +1,160 @@
+/* PC用ではスマホブロックを非表示 */
+@media screen and (min-width: 769px) {
+  .sp-only {
+    display: none !important;
+  }
+}
+
+/* スマホ版（768px以下） */
+@media screen and (max-width: 768px) {
+  .pc-only {
+    display: none !important;
+  }
+
+  .sp-only {
+    display: block;
+  }
+
+  .user-list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+
+/* 偶数版 */
+  .user-record {
+    border: 1px solid #fff;
+  }
+
+  .user-record .row {
+    display: flex;
+    flex-wrap: nowrap;  /* ← wrapを防ぐ！ */
+    width: 100%;
+    border-bottom: 1px solid #fff;
+  }
+
+  .user-record .row:nth-child(odd) {
+    background-color: #e2e2e2;  /* 薄い灰色（項目名） */
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+  .user-record .row:nth-child(odd) .cell {
+    font-weight: bold;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+  .user-record .row:nth-child(even) {
+    background-color: #cccccc;  /* やや濃い灰色（内容） */
+  }
+
+  /* 奇数版 */
+  .user-record-alt {
+    border: 1px solid #fff;
+  }
+  
+  .user-record-alt .row {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    border-bottom: 1px solid #fff;
+  }
+  
+  .user-record-alt .row:nth-child(even) {
+    background-color: #e2e2e2;  /* 項目名（薄い灰色） */
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+  
+  .user-record-alt .row:nth-child(even) .cell {
+    font-weight: bold;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+  
+  .user-record-alt .row:nth-child(odd) {
+    background-color: #cccccc;  /* 内容（やや濃い灰色） */
+  }
+
+  .row .cell:last-child {
+    border-right: none;
+  }
+
+
+  .edit-button {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .edit-button .button {
+    font-size: 16px;
+    padding: 8px 20px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    
+    vertical-align: top; 
+    line-height: 1;            /* ← これ追加 */
+    margin: 0;                 /* ← 念のため余分な余白除去 */
+    display: inline-flex;        /* ← これを追加 */
+    align-items: center;         /* ← 垂直方向の中央揃え */
+    justify-content: center;     /* ← 水平方向の中央揃え */
+  }
+
+
+  .edit-button .button:hover {
+    background-color: #5a6268;
+  }
+
+  /* モバイルソート用のボタン */
+  .sort-control {
+    text-align: right;
+    margin: 10px;
+    font-size: 14px;
+  }
+
+  .sort-button {
+    font-size: 18px;
+    padding: 2px 8px;
+    border: none;
+    background-color: #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .cell {
+    text-align: center;
+    flex: 1;
+    padding: 10px 4px;  /* 上下10px 左右4px */
+    font-size: 14px;
+    border-right: 1px solid #fff;
+    box-sizing: border-box;
+
+    /* 改行に関する指定 */
+    white-space: normal; 
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    
+  }
+
+
+  .cell.full {
+    aspect-ratio: 4 / 3;  /* または 16 / 9 など好みで */
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cell.full img.thumbnail-large {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}

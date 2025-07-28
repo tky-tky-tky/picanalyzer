@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="forms">
+  <div class="profile-row">
+    <div class="form-label-value">
+      <label>Email:</label>
+      <div class="readonly">{{ user.email }}</div>
+    </div>
+    <a href="{% url 'accounts:email_change_request' %}" class="text-blue update-link">Update Email</a>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="profile-row">
+    <div class="form-label-value">
+      <label>Password:</label>
+      <div class="readonly">**********</div>
+    </div>
+    <a href="{% url 'accounts:password_change' %}" class="text-blue update-link">Update Password</a>
+  </div>
+</div>
+
+{% endblock %}

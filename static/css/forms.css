@@ -1,0 +1,305 @@
+
+.forms {
+  font-family: 'Arial', sans-serif;
+  font-size: 24px;
+  color: #333;
+  background-color: #fff;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 横方向中央揃え */
+  justify-content: center; /* 縦方向中央揃え（必要に応じて） */
+  height: 100vh; /* 画面中央に持ってくるため */
+  text-align: center; /* テキストも中央揃え */
+}
+
+
+.forms form {
+  width: 300px; /* お好みで調整 */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.forms input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.forms label {
+font-weight: bold;
+font-size: 18px;
+margin-bottom: 4px;
+display: inline-block;
+text-align: left;
+align-self: flex-start;  /* ← 追加：フォーム内左端にラベルを寄せる */
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+
+.description {
+  font-size: 16px;
+  text-align: center;
+  color: #555;
+  line-height: 1.8;
+}
+
+
+/* 青文字（リンクや注意喚起などに使用） */
+.text-blue {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.button-group {
+display: flex;
+justify-content: center;
+gap: 12px;
+flex-wrap: wrap;
+margin-top: 20px;
+}
+
+/* ボタン全般に適用するスタイル */
+.button {
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #6c757d;  /* グレー */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none; /* ← 下線を消す */
+
+  /* 追加：浮き出る効果 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+/* ボタンにマウスを乗せたとき */
+.button:hover {
+  background-color: #484f55;
+  /* ホバー時の影を強調 */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.readonly {
+width: 100%;
+padding: 8px;
+background-color: #f0f0f0;  /* 薄い灰色 */
+border: none;
+border-radius: 4px;
+box-sizing: border-box;
+font-size: 16px;
+max-width: 300px;
+text-align: center;
+word-break: break-word;       /* ← 長い単語も途中で折る */
+overflow-wrap: break-word;    /* ← Firefoxや古いブラウザ対策 */
+}
+
+.forms select {
+width: 100%;
+padding: 8px;
+font-size: 16px;
+border: 1px solid #ccc;
+border-radius: 4px;
+background-color: #fff;
+box-sizing: border-box;
+appearance: none;       /* ブラウザデフォルト無効（必要に応じて） */
+-webkit-appearance: none;
+-moz-appearance: none;
+background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10'%3E%3Cpath fill='%236c757d' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 10px center;
+background-size: 12px;
+}
+
+.error-message {
+color: rgb(134, 134, 134);
+padding: 10px;
+margin-bottom: 20px;
+border-radius: 4px;
+text-align: center;
+width: 100%;
+max-width: 400px;
+}
+
+.spacer {
+height: 24px; /* 好きな余白に調整可能（例：16px, 32pxでもOK） */
+}
+
+.form-group {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+width: 100%;
+}
+
+.field-group-profile {
+display: flex;
+align-items: center;
+gap: 15px; /* 間隔は少し広めに */
+}
+
+.readonly-profile {
+background-color: #f0f0f0;
+padding: 8px 12px;
+border-radius: 6px;
+width: 300px;  /* 横に長く（ここで調整） */
+text-align: center;  /* 中身を中央寄せ */
+overflow: hidden;
+word-break: break-word; 
+}
+.text-blue-profile {
+color: #007bff;
+font-size: 0.9em;  /* 小さめ文字 */
+white-space: nowrap;  /* 改行させない */
+text-decoration: underline;  /* 常時下線を表示 */
+}
+
+.text-blue-profile:hover {
+text-decoration: underline;
+}
+
+/* 各要素の幅を揃えるラッパー */
+.wrapper {
+width: 100%;
+max-width: 300px;
+}
+
+/* ラベルと値の間に余白 */
+.form-group label {
+margin-bottom: 6px;
+}
+
+/* デフォルト：横並び（PC優先） */
+.form-group.wrapper {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+.action-link {
+display: inline; /* 横並び用 */
+margin-left: 8px;
+text-align: left;
+}
+
+/* 共通（PC・スマホ共通） */
+.profile-row {
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+max-width: 600px;
+margin-bottom: 20px;
+}
+
+.form-label-value {
+display: flex;
+flex-direction: column;
+width: 100%;
+align-items: flex-start;
+}
+
+.update-link {
+margin-top: 10px;
+text-align: center;
+}
+
+/* PC版だけ横並びに切り替え */
+@media screen and (min-width: 769px) {
+.profile-row {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 15px
+}
+
+.form-label-value {
+  width: auto;
+  flex: 1;
+}
+
+.update-link {
+  margin-top: 45px;
+  white-space: nowrap;
+}
+
+.spacer {
+  display: none;
+}
+}
+
+
+@media screen and (max-width: 768px) {
+  .forms {
+    padding: 20px 15px;
+    height: auto; /* スマホでの縦スクロールに対応 */
+    justify-content: flex-start; /* 縦中央ではなく上詰めに */
+  }
+
+  .forms > div {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .forms form {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .forms input {
+    font-size: 16px;
+  }
+
+
+
+  .text-blue {
+    font-size: 14px;
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-top: 30px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 0 5px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .form-group.wrapper {
+    display: block;
+  }
+
+  .action-link {
+    display: block;
+    margin-left: 0;
+    margin-top: 8px;
+    text-align: center;
+  }
+  
+
+}

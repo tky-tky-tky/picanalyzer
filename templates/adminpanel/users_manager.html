@@ -1,0 +1,116 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/table.css' %}">
+  <link rel="stylesheet" href="{% static 'css/table_mobile.css' %}">
+{% endblock %}
+
+{% block body %}
+<br>
+<div class="forms">
+
+  <!-- Pictures Managerへのリンク -->
+  <div class="top-link">
+    <a href="{% url 'adminpanel:pictures_manager' %}" class="text-blue">▼ Pictures Manager</a>
+  </div>
+
+  <!-- ソートボタン（スマホ専用） -->
+  <div class="sort-control sp-only">
+    <span>sort by joined</span>
+    <a href="?sort={% if sort_order == 'asc' %}desc{% else %}asc{% endif %}{% if selected_staff %}&is_staff={{ selected_staff }}{% endif %}">
+      {% if sort_order == 'asc' %}
+        <button class="sort-button">▲</button>
+      {% else %}
+        <button class="sort-button">▼</button>
+      {% endif %}
+    </a>
+  </div>
+
+  <!-- フィルター -->
+  <form method="get" class="filter-form">
+    <label for="is_staff">is_admin:</label>
+    <select name="is_staff" id="is_staff" onchange="this.form.submit()">
+      <option value="">------</option>
+      <option value="True" {% if selected_staff == 'True' %}selected{% endif %}>True</option>
+      <option value="False" {% if selected_staff == 'False' %}selected{% endif %}>False</option>
+    </select>
+  </form>
+
+  <!-- PC用 表形式 -->
+  <table class="image-table pc-only">
+    <thead>
+      <tr>
+        <th>user_id</th>
+        <th>email</th>
+        <th>user_name</th>
+        <th>is_admin</th>
+        <th>
+          <a href="?sort={% if sort_order == 'asc' %}desc{% else %}asc{% endif %}{% if selected_staff %}&is_staff={{ selected_staff }}{% endif %}">
+            joined_at{% if sort_order == 'asc' %}▲{% else %}▼{% endif %}
+          </a>
+        </th>
+        <th>edit</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.user_id|stringformat:"08d" }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.is_staff }}</td>
+        <td>{{ user.created_at|date:"Y/m/d H:i" }}</td>
+        <td>
+          <a href="{% url 'adminpanel:user_edit' user_id=user.user_id %}" class="table-button">edit</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="6">ユーザーが存在しません</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- スマホ用 表示ブロック -->
+  <div class="user-list sp-only">
+    {% for user in users %}
+    <div class="user-record">
+      <!-- 1行目：user_id / user_name -->
+      <div class="row">
+        <div class="cell">user_id</div>
+        <div class="cell">user_name</div>
+      </div>
+      <div class="row">
+        <div class="cell">{{ user.user_id|stringformat:"08d" }}</div>
+        <div class="cell">{{ user.username }}</div>
+      </div>
+  
+      <!-- 2行目：email -->
+      <div class="row">
+        <div class="cell">email</div>
+      </div>
+      <div class="row">
+        <div class="cell">{{ user.email }}</div>
+      </div>
+  
+      <!-- 3行目：joined_at / is_admin -->
+      <div class="row">
+        <div class="cell">joined_at</div>
+        <div class="cell">is_admin</div>
+      </div>
+      <div class="row">
+        <div class="cell">{{ user.created_at|date:"Y/m/d H:i" }}</div>
+        <div class="cell">{{ user.is_staff }}</div>
+      </div>
+  
+      <!-- Editボタン -->
+      <div class="edit-button">
+        <a href="{% url 'adminpanel:user_edit' user_id=user.user_id %}" class="button">Edit</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <br>
+</div>
+{% endblock %}

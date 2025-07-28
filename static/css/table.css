@@ -1,0 +1,382 @@
+/* メインコンテナ：画面中央に最大幅で整列 */
+.table-page {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* フィルタフォームを横並びに */
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+/* 各フィルター項目のラベルとセレクトを横並びに */
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-item input[list] {
+  min-width: 160px;
+  padding: 4px 8px;
+  font-size: 14px;
+}
+
+.filter-form label {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* フィルタセレクトボックスの共通スタイル（オプション） */
+.filter-form input,
+.filter-form select {
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15); /* ここが影 */
+  background-color: #fff;
+}
+
+
+/* テーブル本体 */
+.image-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ccc; /* 全体の背景（灰色） */
+  align-items: center;
+
+}
+
+.image-table th, .image-table td {
+  border: 1px solid #fff; /* 枠線：白 */
+  padding: 10px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.image-table th {
+  background-color: #eeeeee; /* 項目名：薄い灰色 */
+  font-weight: bold;
+}
+
+.image-table td {
+  background-color: #dadada; /* データ行：灰色 */
+}
+
+/* ストライプ交互背景 */
+.image-table tr:nth-child(even) td {
+  background-color: #c4c4c4;
+}
+
+/* サムネイル画像 */
+.thumbnail {
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.thumbnail-wrapper {
+  position: relative;
+  display: inline-block;
+  cursor: zoom-in;
+}
+
+.thumbnail-wrapper .zoom-hint {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.thumbnail-wrapper:hover .zoom-hint {
+  opacity: 1;
+}
+
+/* モーダル画像プレビュー */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 5vh 5vw;  /* 上下左右に余白 */
+  box-sizing: border-box;
+}
+
+.modal-content {
+  display: block;
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: 5vh auto;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px; right: 40px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 信頼度に応じた色分け */
+.reliability-high {
+  color: green;
+  font-weight: bold;
+}
+.reliability-mid {
+  color: orange;
+  font-weight: bold;
+}
+.reliability-low {
+  color: red;
+  font-weight: bold;
+}
+
+/* ステータス色分け */
+.status-blue {
+  color: #007bff;
+  font-weight: bold;
+  word-break: keep-all;
+}
+
+.status-green {
+  color: green;
+  font-weight: bold;
+  word-break: keep-all;
+}
+
+.status-red {
+  color: red;
+  font-weight: bold;
+  word-break: keep-all;
+}
+
+/* エラーポップアップ */
+.error-popup {
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 5px;
+  white-space: pre-wrap;
+  text-align: left;
+  font-family: monospace;
+  max-width: 400px;
+}
+
+/* ヘッダリンク */
+.top-link {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+/* テーブル内の操作ボタン */
+.table-button {
+  display: inline-block;
+  font-size: 14px;
+  padding: 6px 12px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none; /* ← 下線を消すために追加！ */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.table-button:hover {
+  background-color: #f2f2f2;
+  color: #000;
+}
+
+/* 表内テキストボックス */
+.table-input {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+/* 表内プルダウン */
+.table-select {
+  width: 100%;
+  padding: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* 表下のボタンのグループ */
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* 共通リンクの青色 */
+.text-blue {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* Uploadボタン（上部中央寄せ） */
+.upload-button {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+/* 共通ボタンスタイル（formscssから引用） */
+.button {
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #6c757d;  /* グレー */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none; /* 下線をなくす */
+
+    /* 追加：浮き出る効果 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.button:hover {
+  background-color: #5a6268;
+
+    /* ホバー時の影を強調 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sort-button.shadowed {
+  background-color: #c2c2c2;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sort-button.shadowed:hover {
+  background-color: #b8b8b8;
+}
+
+/* ページ説明・見出しに使う太字＆中央寄せの大きなテキスト */
+.description {
+  font-size: 24px;          /* 大きめの文字サイズ */
+  font-weight: bold;        /* 太字 */
+  text-align: center;       /* 中央寄せ */
+  color: #333;              /* 視認性の高いグレー */
+  margin-bottom: 20px;      /* 下の余白 */
+}
+
+.error-details pre {
+  white-space: pre-wrap;       /* 改行と空白を維持しつつ折り返し */
+  word-break: break-word;      /* 単語の途中でも改行 */
+  max-width: 600px;            /* 必要に応じて制限幅を設定 */
+  overflow-wrap: anywhere;
+}
+
+.tooltip-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #888;
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 260px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.tooltip-icon:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-wrap {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;  /* 改行防止 */
+  cursor: pointer;
+}
+
+.tooltip-wrap .tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  max-width: 400px;
+  background-color: rgba(60, 60, 60, 0.9);
+  color: #fff;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 10;
+
+  /* 変更点ここから */
+  top: 125%;              /* 下方向に表示 */
+  bottom: auto;           /* 上方向を解除 */
+  /* 変更点ここまで */
+
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* ←クリックされたときに表示 */
+.tooltip-wrap.active .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.nowrap {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}

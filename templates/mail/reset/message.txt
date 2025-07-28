@@ -1,0 +1,8 @@
+{{ user.email }} 様
+
+以下のリンクをクリックして、パスワードの再設定を行ってください。
+
+{{ protocol }}://{{ domain }}{% url 'accounts:password_reset_confirm' uidb64=uid token=token %}
+
+このリンクは一定時間後に無効になります。
+心当たりがない場合は、このメールを破棄してください。

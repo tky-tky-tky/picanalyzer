@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block body %}
+  <div class="title">仮登録が完了しました。</div>
+  <div class="description">
+    入力したメールアドレスにメールをお送りしました。<br>
+    記載されたURLから会員登録を完了してください。
+  </div>
+{% endblock %}

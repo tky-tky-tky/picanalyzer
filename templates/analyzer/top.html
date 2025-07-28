@@ -1,0 +1,228 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/table.css' %}">
+  <link rel="stylesheet" href="{% static 'css/table_mobile.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="table-page">
+
+  <!-- Upload ボタン -->
+  <div class="upload-button">
+    <form action="{% url 'analyzer:upload' %}" method="get">
+      <button type="submit" class="button">UP LOAD</button>
+    </form>
+  </div>
+
+  <!-- フィルタフォーム -->
+  <form method="get" class="filter-form">
+    <!-- ステータス選択 -->
+    <div class="filter-item">
+      <label for="status">status:</label>
+      <select name="status" id="status" onchange="this.form.submit()">
+        <option value="">------</option>
+        <option value="準備中" {% if selected_status == '準備中' %}selected{% endif %}>準備中</option>
+        <option value="解析中" {% if selected_status == '解析中' %}selected{% endif %}>解析中</option>
+        <option value="成功" {% if selected_status == '成功' %}selected{% endif %}>解析成功</option>
+        <option value="失敗" {% if selected_status == '失敗' %}selected{% endif %}>解析失敗</option>
+      </select>
+    </div>
+
+    <!-- ラベル選択（datalist） -->
+    <div class="filter-item">
+      <label for="label">label:</label>
+      <input
+        type="text"
+        name="label"
+        id="label"
+        list="label_options"
+        value="{{ selected_label|default_if_none:'' }}"
+        autocomplete="off"
+        placeholder="ラベル名を入力">
+      <datalist id="label_options">
+        {% for lbl in label_options %}
+          <option value="{{ lbl }}">
+        {% endfor %}
+      </datalist>
+    </div>
+
+    
+  <!-- 並び替え（昇順・降順） -->
+  <div class="filter-item">
+    <label>sort by upload:</label>
+    <a href="?{% if sort_order == 'asc' %}sort=desc{% else %}sort=asc{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}{% if selected_label %}&label={{ selected_label }}{% endif %}">
+      {% if sort_order == 'asc' %}
+        <button type="button" class="sort-button shadowed">▲</button>
+      {% else %}
+        <button type="button" class="sort-button shadowed">▼</button>
+      {% endif %}
+    </a>
+  </div>
+</form>
+
+  <!-- PC版表 -->
+  <table class="image-table pc-only">
+    <thead>
+      <tr>
+        <th>image</th>
+        <th>upload</th>
+        <th>status</th>
+        <th>
+          label
+          <span class="tooltip-icon">🛈
+            <span class="tooltip-text">
+              画像に付けられた分類カテゴリを示します。例: Animal, Machine など
+            </span>
+          </span>
+        </th>
+        <th>reliability</th>
+        <th>reanalyze</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for analysis in analyses %}
+      <tr>
+        <td>
+          {% if analysis.image.image %}
+            <div class="thumbnail-wrapper" onclick="openModal(this)">
+              <span class="zoom-hint">＋</span>
+              <img src="{{ analysis.image.image.url }}" alt="image" class="thumbnail">
+            </div>
+          {% else %}
+            <span>No image</span>
+          {% endif %}
+        </td>
+        <td>{{ analysis.image.uploaded_at|date:"Y/m/d H:i" }}</td>
+        <td>
+          {% if analysis.status == "準備中" %}
+            準備中({{ analysis.waiting_number }})
+          {% elif analysis.status == "解析中" %}
+            <span class="status-blue">解析中...</span>
+          {% elif analysis.status == "成功" %}
+            <span class="status-green">解析成功！</span>
+          {% elif analysis.status == "失敗" %}
+            <span class="status-red">解析失敗<br><small>{{ analysis.error_name }}</small></span>
+          {% endif %}
+        </td>
+        <td>
+          {{ analysis.label|default_if_none:'' }}
+        </td>
+        <td>
+          {% if analysis.reliability %}
+            {% with analysis.reliability|floatformat:0 as rel %}
+              <span class="
+                {% if rel|add:'0' >= 80 %}
+                  reliability-high
+                {% elif rel|add:'0' >= 50 %}
+                  reliability-mid
+                {% else %}
+                  reliability-low
+                {% endif %}
+              ">{{ rel }}%</span>
+            {% endwith %}
+          {% endif %}
+        </td>
+        <td>
+          {% if analysis.status == "成功" or analysis.status == "失敗" %}
+            <a href="{% url 'analyzer:reanalyze' analysis.analysis_id %}" class="table-button">reanalyze</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">解析履歴がありません</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- スマホ版 表風カード -->
+  <div class="user-list sp-only">
+    {% for analysis in analyses %}
+    <div class="user-record-alt">
+
+      <!-- 画像 -->
+      <div class="row">
+        <div class="cell full">
+          {% if analysis.image.image %}
+            <img src="{{ analysis.image.image.url }}" alt="image" class="thumbnail-large">
+          {% else %}
+            <span>No image</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- upload / status -->
+      <div class="row">
+        <div class="cell">upload</div>
+        <div class="cell">status</div>
+      </div>
+      <div class="row">
+        <div class="cell">{{ analysis.image.uploaded_at|date:"Y/m/d H:i" }}</div>
+        <div class="cell">
+          {% if analysis.status == "準備中" %}
+            準備中({{ analysis.waiting_number }})
+          {% elif analysis.status == "解析中" %}
+            <span class="status-blue">解析中...</span>
+          {% elif analysis.status == "成功" %}
+            <span class="status-green">解析成功！</span>
+          {% elif analysis.status == "失敗" %}
+            <span class="status-red">解析失敗<br><small>{{ analysis.error_name }}</small></span>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- label / reliability -->
+      <div class="row">
+        <div class="cell">label
+          <span class="tooltip-icon">🛈
+            <span class="tooltip-text">
+              画像に付けられた分類カテゴリを示します。例: Animal, Machine など
+            </span>
+          </span></div>
+        <div class="cell">reliability</div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          {{ analysis.label|default_if_none:'' }}
+        </div>
+        <div class="cell">
+          {% if analysis.reliability %}
+          {% with analysis.reliability|floatformat:0 as rel %}
+            <span class="
+              {% if rel|add:'0' >= 80 %}
+                reliability-high
+              {% elif rel|add:'0' >= 50 %}
+                reliability-mid
+              {% else %}
+                reliability-low
+              {% endif %}
+            ">{{ rel }}%</span>
+          {% endwith %}
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- reanalyzeボタン -->
+      {% if analysis.status == "成功" or analysis.status == "失敗" %}
+      <div class="edit-button">
+        <a href="{% url 'analyzer:reanalyze' analysis.analysis_id %}" class="button">reanalyze</a>
+      </div>
+      {% endif %}
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- モーダル -->
+<div id="imgModal" class="modal" onclick="closeModal()">
+  <span class="modal-close" onclick="closeModal()">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/modal.js' %}"></script>
+{% endblock %}

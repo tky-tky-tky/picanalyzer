@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PicAnalyzer{% endblock %}</title>
+    <!-- blockで囲むことでタイトルを他のhtmlで上書きできる -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    {% block extra_css %}{% endblock %}
+  </head>
+<body>
+
+  <header>
+    <a href="{% url 'analyzer:top' %}" class="logo-link">
+      <img src="{% static 'img/logo.png' %}" alt="PicAnalyzer" class="logo-img">
+    </a>
+
+    <!-- ハンバーガーメニュー用チェックボックス -->
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+    <nav class="buttons">
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+          <a href="{% url 'adminpanel:pictures_manager' %}">Admin</a>
+        {% endif %}
+        <a href="{% url 'accounts:user_info' %}">Info</a>
+        <a href="#" onclick="document.getElementById('logout-form').submit(); return false;">LogOut</a>
+        <form id="logout-form" action="{% url 'accounts:logout' %}" method="post" style="display:none;">
+          {% csrf_token %}
+        </form>
+      {% else %}
+        <a href="{% url 'accounts:signup' %}">Sign Up</a>
+        <a href="{% url 'accounts:login' %}">Log In</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    {% block body %}
+    {% endblock %}
+  </main>
+
+  {% block extra_js %}{% endblock %}
+
+</body>
+</html>

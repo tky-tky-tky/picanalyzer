@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="forms">
+
+  {% if messages %}
+  <div class="description error-message">
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="description">
+    入力したメールアドレスに変更の確認をお送りします。<br>
+    メールに記載されているURLから変更を確定してください。
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group wrapper">
+      <label for="id_email">EMAIL:</label>
+      {{ form.email }}
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="button">SEND</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

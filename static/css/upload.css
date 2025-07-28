@@ -1,0 +1,202 @@
+.upload-container {
+  max-width: 600px; /* ←少し狭めると中央に集中せずスッキリ見える */
+  padding: 48px 16px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.control-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-block {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 16px;  /* ←追加 */
+}
+
+.form-section {
+  margin-bottom: 32px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.file-input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.model-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.model-select select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  appearance: none;  /* ブラウザ標準のUIを非表示に */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='gray' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658c-.566-.63-.106-1.658.753-1.658h9.592c.86 0 1.32 1.028.753 1.658L8.753 11.14a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px 16px;
+}
+
+.analyze-button-row {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+
+    /* 追加：浮き出る効果 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.button:hover {
+  background-color: #5a6268;
+
+    /* ホバー時の影を強調 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  color: #888;
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 260px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.tooltip-icon:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.error-message {
+  /* 見た目 */
+  background: #ffeaea;          /* 薄い赤背景 */
+  color: #b30000;               /* 濃い赤文字 */
+  font-weight: 700;             /* ★ 太字 */
+  font-size: 1.1rem;            /* ★ 少し大きく */
+  text-align: center;
+
+  /* レイアウト */
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border: 2px solid #f5a3a3;    /* ワンポイント枠線 */
+  border-radius: 6px;
+  /* シャドウで浮かせても◎
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  */
+}
+
+.reanalyze-image {
+  display: block;           /* 必須：imgはinlineなのでblockに */
+  margin: 16px auto;        /* 左右中央寄せ（auto） */
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.button-row-horizontal {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.button-link {
+  text-decoration: none;  /* 下線なし */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: auto;  /* min-width解除で自然な横幅 */
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.analyze-button-row + .analyze-button-row {
+  margin-top: 16px;  /* ボタン同士の間隔を16pxにする */
+}
+
+/* スマホ用レイアウト対応 */
+@media screen and (max-width: 768px) {
+  .upload-container {
+    padding: 0 16px;
+  }
+
+  .file-input,
+  .model-select select {
+    width: 100%;
+  }
+
+  .model-select {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .model-select label {
+    display: block;
+    text-align: center;
+    width: 100%; /* ← 親幅にしておくと確実 */
+    margin-bottom: 5px;
+  }
+
+  .button {
+    width: 100%;
+  }
+  
+}

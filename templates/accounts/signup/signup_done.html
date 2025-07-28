@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block body %}
+  <div class="title">会員登録が完了しました。</div>
+
+  
+  <script>
+    setTimeout(function () {
+      window.location.href = "{% url 'analyzer:upload' %}";
+    }, 5000); // ← 3秒後に自動ジャンプ（ミリ秒）
+  </script>
+{% endblock %}

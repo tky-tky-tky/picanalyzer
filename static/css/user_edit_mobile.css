@@ -1,0 +1,76 @@
+@media screen and (min-width: 769px) {
+    .sp-only {
+      display: none !important;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .pc-only {
+      display: none !important;
+    }
+  
+    .sp-only {
+      display: block;
+    }
+  
+    .form-mobile {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  
+    .field-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  
+    .field-block label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  
+    .field-block input,
+    .field-block select {
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  
+    .readonly {
+      background-color: #eee;
+      padding: 8px;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 14px;
+    }
+  
+    .button-group {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 12px;
+    }
+  
+    .table-button {
+      font-size: 16px;
+      padding: 8px 16px;
+      background-color: #6c757d;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+  
+    .table-button:hover {
+      background-color: #5a6268;
+    }
+  }
+  

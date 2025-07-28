@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="forms">
+  {% if form.non_field_errors %}
+  <div class="text-danger mb-3">{{ form.non_field_errors }}</div>
+  {% endif %}
+
+
+  <form method="POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div>
+      <label for="id_username">Email:</label><br>
+      <input type="text" name="username" id="id_username" placeholder="example@mail.co.jp">
+    </div>
+
+    <div>
+      <label for="id_password">PASSWORD:</label><br>
+      <input type="password" name="password" id="id_password" placeholder="●●●●●●●">
+    </div>
+
+    <br>
+
+    <div>
+      <button type="submit" class="button">LOG IN</button>
+    </div>
+
+    <div>
+      <a href="{% url 'accounts:password_reset' %}" class="text-blue">forgotten password?</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

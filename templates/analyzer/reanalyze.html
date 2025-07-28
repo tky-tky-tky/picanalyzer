@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/upload.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="upload-container">
+
+  {% if messages %}
+  <div class="message-group">
+    {% for message in messages %}
+      <div class="error-message">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+
+<!-- 対象画像表示セクション -->
+<div class="form-section">
+    <div class="form-block">
+      <img src="{{ analysis.image.image.url }}" alt="Target Image" class="reanalyze-image">
+    </div>
+  </div>
+
+    <!-- モデル選択セクション -->
+    <div class="form-section">
+      <div class="form-block model-select">
+        <label for="id_model">Model:</label>
+        <select name="model_name" id="id_model">
+          <option value="efficientnet_b0" {% if analysis.model_name == "efficientnet_b0" %}selected{% endif %}>EfficientNetB0</option>
+          <option value="mobilenet_v2" {% if analysis.model_name == "mobilenet_v2" %}selected{% endif %}>MobileNetV2</option>
+          <option value="resnet50" {% if analysis.model_name == "resnet50" %}selected{% endif %}>ResNet50</option>
+          <option value="effb0_1001human" {% if analysis.model_name == "effb0_1001human" %}selected{% endif %}>Custom (effb0_1001human)</option>
+          <option value="effb0_5class" {% if analysis.model_name == "effb0_5class" %}selected{% endif %}>Custom (5effb0_5class)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 大カテゴリ選択セクション -->
+    <div class="form-section">
+      <div class="form-block">
+        <label class="tooltip-label">
+          <input type="checkbox" name="use_category" {% if analysis.use_category %}checked{% endif %}>
+          Use category-level classification
+          <span class="tooltip-icon">ⓘ
+            <span class="tooltip-text">
+              予測を「Animal」「Human」「Machine」「Landscape」「Sports」の5つカテゴリに分類します。
+            </span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ボタン -->
+    <div class="analyze-button-row">
+        <button type="submit" class="button">Re-analyze</button>
+      </div>
+      <div class="analyze-button-row">
+        <a href="{% url 'analyzer:top' %}" class="button button-link">Back</a>
+      </div>
+  </form>
+</div>
+{% endblock %}

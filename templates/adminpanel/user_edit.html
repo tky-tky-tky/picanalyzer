@@ -1,0 +1,56 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="forms">
+  <form method="POST">
+    {% csrf_token %}
+
+    {% if messages %}
+    <div class="description error-message">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div>
+      <label for="user_id">USER ID:</label><br>
+      <div class="readonly">{{ user_obj.user_id|stringformat:"08d" }}</div>
+    </div>
+
+    <div>
+      <label for="email">EMAIL:</label><br>
+      <input type="text" name="email" value="{{ user_obj.email }}">
+    </div>
+
+    <div>
+      <label for="username">USERNAME:</label><br>
+      <input type="text" name="username" value="{{ user_obj.username|default_if_none:'' }}">
+    </div>
+
+    <div>
+      <label for="is_staff">IS ADMIN:</label><br>
+      <select name="is_staff">
+        <option value="True" {% if user_obj.is_staff %}selected{% endif %}>True</option>
+        <option value="False" {% if not user_obj.is_staff %}selected{% endif %}>False</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="joined_at">JOINED AT:</label><br>
+      <div class="readonly">{{ user_obj.created_at|date:"Y/m/d H:i" }}</div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="button">UPDATE</button>
+      <a href="{% url 'adminpanel:user_delete' user_id=user_obj.user_id %}" class="button">DELETE</a>
+      <a href="{% url 'adminpanel:users_manager' %}" class="button">BACK</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

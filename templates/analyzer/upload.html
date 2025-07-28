@@ -1,0 +1,65 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/upload.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="upload-container">
+
+  {% if messages %}
+  <div class="message-group">
+    {% for message in messages %}
+      <div class="error-message">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+  
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- 画像アップロードセクション -->
+    <div class="form-section">
+      <label for="id_images">Select image(s):</label>
+      <div class="form-block">
+        <input type="file" id="id_images" name="images" accept="image/*" class="file-input" multiple required>
+      </div>
+    </div>
+
+    <!-- モデル選択セクション -->
+    <div class="form-section">
+      <div class="form-block model-select">
+        <label for="id_model">Model:</label>
+        <select name="model" id="id_model">
+          <option value="mnv2_1001_custom" selected>Custom (mnv2_1001)</option>
+          <option value="mobilenet_v2">MobileNetV2</option>
+          <option value="resnet50">ResNet50</option>
+          <option value="efficientnet_b0">EfficientNetB0</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 大カテゴリ選択セクション -->
+    <div class="form-section">
+      <div class="form-block">
+        <label class="tooltip-label">
+          <input type="checkbox" name="use_category" checked>
+          Use category-level classification
+          <span class="tooltip-icon">ⓘ
+            <span class="tooltip-text">
+              予測を「Animal」「Human」「Machine」などの大カテゴリに分類します。
+            </span>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- ボタン -->
+    <div class="analyze-button-row">
+      <button type="submit" class="button">ANALYZE</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

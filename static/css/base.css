@@ -1,0 +1,115 @@
+
+body,html {
+    margin: 0;  /* 解決するため */
+    padding: 0; /* 入れておくと無難 */
+  }
+
+
+header {
+    background-color: #999;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ロゴリンク全体 */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* ロゴ画像そのもの */
+.logo-img {
+    height: 40px;
+}
+
+/* ログイン・ログアウトボタンなど */
+.buttons a {
+    margin-left: 10px;
+    background-color: white;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s ease, color 0.2s ease; /* ← スムーズな変化 */
+}
+
+.buttons a:hover {
+    background-color: #ddd;  /* 好きな色に変えてOK */
+    color: #000;             /* ホバー時の文字色も変えるなら */
+}
+
+/* ハンバーガーメニュー：表示切替ボタン */
+.menu-toggle {
+    display: none;
+  }
+  
+  .menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    padding: 0 10px;
+  }
+  
+  /* レスポンシブ対応：768px以下で切り替え */
+  @media screen and (max-width: 768px) {
+    header {
+      flex-wrap: wrap; /* ロゴとメニューが重ならないようにする */
+      padding: 10px;
+    }
+  
+    .logo-img {
+      height: 36px; /* 少し小さくしてスマホに合わせる */
+    }
+  
+    .menu-icon {
+      display: block;
+      margin-left: auto; /* ロゴとハンバーガーを分離 */
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+      padding: 0 10px;
+    }
+  
+    .buttons {
+      display: none;
+      flex-direction: column;
+      background-color: #444; /* 濃いグレー背景 */
+      position: absolute;
+      left: 0;
+      top: 60px;
+      width: 100vw;
+      padding: 0;
+      z-index: 999;
+      border-radius: 0;        /* ← 角丸を無効に */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 影を追加して浮き感 */
+    }
+    
+    /* ハンバーガー展開時に表示 */
+    .menu-toggle:checked + .menu-icon + .buttons {
+      display: flex;
+    }
+    
+    /* 各リンクのスタイル */
+    .buttons a {
+      padding: 16px;
+      font-size: 16px;
+      text-align: left;
+      width: 100%;
+      background-color: #eee;
+      color: #333;
+      border: 1px solid #fff;      /* ← 白い枠線で区切る */
+      border-radius: 0;            /* ← 四角形 */
+      box-sizing: border-box;
+    }
+    
+    /* 最後のメニューのボーダーを消す */
+    .buttons a:last-child {
+      border-bottom: none;
+    }
+  }

@@ -1,0 +1,92 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/table.css' %}">
+  <link rel="stylesheet" href="{% static 'css/table_mobile.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="forms">
+
+  <br>
+  <!-- タイトル -->
+  <div class="description">この内容で確定しますか？</div>
+
+  <!-- PC用：テーブル -->
+  <form method="post" class="pc-only">
+    {% csrf_token %}
+    <table class="image-table">
+      <thead>
+        <tr>
+          <th>user_id</th>
+          <th>email</th>
+          <th>user_name</th>
+          <th>is_admin</th>
+          <th>joined_at</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ edit_user.user_id|stringformat:"08d" }}</td>
+          <td>{{ edit_user.email }}</td>
+          <td>{{ edit_user.username }}</td>
+          <td>{{ edit_user.is_staff }}</td>
+          <td>{{ user.created_at|date:"Y/m/d H:i" }}</td>
+        </tr>
+      </tbody>
+      </table>
+
+    <!-- ボタン -->
+    <div class="button-group">
+      <button type="submit" class="button">Update</button>
+      <a href="{% url 'adminpanel:user_edit' user_id=edit_user.user_id %}" class="button">Back</a>
+    </div>
+  </form>
+
+  <!-- スマホ版 表 -->
+  <form method="post"  class="user-list sp-only">
+    {% csrf_token %}
+    <div class="user-list">
+      <div class="user-record">
+        <!-- 1行目：user_id / user_name -->
+        <div class="row">
+          <div class="cell">user_id</div>
+          <div class="cell">user_name</div>
+        </div>
+        <div class="row">
+          <div class="cell">{{ edit_user.user_id|stringformat:"08d" }}</div>
+          <div class="cell">{{ edit_user.username }}</div>
+        </div>
+
+        <!-- 2行目：email -->
+        <div class="row">
+          <div class="cell">email</div>
+        </div>
+        <div class="row">
+          <div class="cell">{{ edit_user.email }}</div>
+        </div>
+
+        <!-- 3行目：is_admin -->
+        <div class="row">
+          <div class="cell">is_admin</div>
+          <div class="cell">joined_at</div>
+        </div>
+        <div class="row">
+          <div class="cell">{{ edit_user.is_staff }}</div>
+          <div class="cell">{{ user.created_at|date:"Y/m/d H:i" }}</div>
+        </div>
+
+
+        <!-- ボタン -->
+        <div class="edit-button">
+          <button type="submit" class="button">Update</button>
+          <a href="{% url 'adminpanel:user_edit' user_id=edit_user.user_id %}" class="button">Back</a>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+{% endblock %}
+
