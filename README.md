@@ -21,8 +21,10 @@ Django学習の過程で作成した、画像分類Webアプリケーション�
 
 <img width="1061" height="265" alt="画像解析テーブル課題 drawio(1)" src="https://github.com/user-attachments/assets/b9f7e4d4-8927-420a-b457-d64f3cb1bdd6" />
 
-※本仕様とは一部変更
+※本仕様とは一部変更  
+
 ---
+
 
 ## 📸 スクリーンショット
 <img width="1257" height="815" alt="image" src="https://github.com/user-attachments/assets/7e232bdd-e9d8-41fb-8169-50a4da03dd54" />
