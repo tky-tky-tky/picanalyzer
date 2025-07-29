@@ -18,8 +18,10 @@ Django学習の過程で作成した、画像分類Webアプリケーション�
 ---
 
 ### 🗂️ テーブル設計（ER図）
+
 <img width="1061" height="265" alt="画像解析テーブル課題 drawio(1)" src="https://github.com/user-attachments/assets/b9f7e4d4-8927-420a-b457-d64f3cb1bdd6" />
 
+※本仕様とは一部変更
 ---
 
 ## 📸 スクリーンショット
