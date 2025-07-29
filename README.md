@@ -2,11 +2,6 @@
 
 Django学習の過程で作成した、画像分類Webアプリケーションです。  
 アップロードした画像をAIモデルで解析し、ラベルを自動で分類・表示します。
-<img width="1257" height="815" alt="image" src="https://github.com/user-attachments/assets/7e232bdd-e9d8-41fb-8169-50a4da03dd54" />
-
-<img width="1256" height="745" alt="image" src="https://github.com/user-attachments/assets/62519a90-99ce-486f-aca5-354a1620a4a3" />
-
-
 
 ---
 
